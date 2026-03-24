@@ -1,28 +1,31 @@
 import { ClerkProvider } from '@clerk/nextjs'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { dark } from '@clerk/themes'
+import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
 
 export const metadata = {
   title: "Expense Tracker",
-  description: "Expense Tracker App",
+  description: "Smart Expense Tracker App",
 };
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const cormorant = Cormorant_Garamond({
+  variable: '--font-cormorant',
   subsets: ['latin'],
-})
+  weight: ['400', '600', '700'],
+});
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const dmSans = DM_Sans({
+  variable: '--font-dm-sans',
   subsets: ['latin'],
-})
+  weight: ['400', '500', '600'],
+});
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{ baseTheme: dark }}>
       <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${cormorant.variable} ${dmSans.variable} antialiased`}>
           {children}
           <Toaster richColors position="top-right" />
         </body>

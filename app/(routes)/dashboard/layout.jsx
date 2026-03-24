@@ -26,7 +26,7 @@ function DashboardLayout({ children }) {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-gray-950">
 
             {/* Desktop Sidebar */}
             <div className="fixed md:w-64 hidden md:block h-screen z-30">

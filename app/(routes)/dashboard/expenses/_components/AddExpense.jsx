@@ -14,24 +14,17 @@ function AddExpense({ budgetId, user, refreshData }) {
     const [loading, setLoading] = useState(false);
 
     const addNewExpense = async () => {
-        if (!name || !amount) {
-            toast.error("Please fill in all fields");
-            return;
-        }
+        if (!name || !amount) { toast.error("Please fill in all fields"); return; }
         setLoading(true);
         try {
             const result = await db.insert(Expenses).values({
-                name: name,
-                amount: amount,
-                budgetId: budgetId,
+                name, amount, budgetId,
                 createdAt: moment().format("DD/MM/YYYY"),
             }).returning({ insertedId: Expenses.id });
-
             if (result) {
                 refreshData();
                 toast.success("Expense added!");
-                setName("");
-                setAmount("");
+                setName(""); setAmount("");
             }
         } catch (err) {
             toast.error("Failed to add expense");
@@ -41,54 +34,38 @@ function AddExpense({ budgetId, user, refreshData }) {
     };
 
     return (
-        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-            <h2 className="font-bold text-gray-900 text-lg mb-5 flex items-center gap-2">
-                <PlusCircle className="w-5 h-5 text-indigo-600" />
+        <div className="rounded-2xl p-6 border border-white/5" style={{ background: "rgba(255,255,255,0.02)" }}>
+            <h2 className="font-bold text-white text-lg mb-5 flex items-center gap-2" style={{ fontFamily: "var(--font-cormorant), serif" }}>
+                <PlusCircle className="w-5 h-5 text-indigo-400" />
                 Add New Expense
             </h2>
-
             <div className="space-y-4">
-
-                {/* Expense Name */}
                 <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 block">
-                        Expense Name
-                    </label>
+                    <label className="text-sm font-medium text-gray-400 mb-1.5 block">Expense Name</label>
                     <Input
                         placeholder="e.g. Milk, Netflix, Fuel..."
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="rounded-xl border-gray-200"
+                        className="rounded-xl bg-gray-800 border-gray-700 text-gray-200 placeholder-gray-600 focus:border-indigo-500"
                     />
                 </div>
-
-                {/* Expense Amount */}
                 <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 block">
-                        Amount (₹)
-                    </label>
+                    <label className="text-sm font-medium text-gray-400 mb-1.5 block">Amount (₹)</label>
                     <Input
                         type="number"
                         placeholder="e.g. 499"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
-                        className="rounded-xl border-gray-200"
+                        className="rounded-xl bg-gray-800 border-gray-700 text-gray-200 placeholder-gray-600 focus:border-indigo-500"
                     />
                 </div>
-
-                {/* Submit Button */}
                 <Button
                     onClick={addNewExpense}
                     disabled={loading || !name || !amount}
                     className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white py-5 font-semibold"
                 >
-                    {loading ? (
-                        <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Adding...</>
-                    ) : (
-                        "Add Expense"
-                    )}
+                    {loading ? <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Adding...</> : "Add Expense"}
                 </Button>
-
             </div>
         </div>
     );
