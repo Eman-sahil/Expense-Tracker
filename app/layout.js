@@ -9,9 +9,6 @@ export const metadata = {
   description: "Smart Expense Tracker App",
 };
 
-// Allow dynamic rendering for Clerk
-export const dynamic = 'force-dynamic';
-
 const cormorant = Cormorant_Garamond({
   variable: '--font-cormorant',
   subsets: ['latin'],

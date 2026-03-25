@@ -8,9 +8,6 @@ import { eq, getTableColumns, sql } from "drizzle-orm";
 import BudgetItem from "./_components/BudgetItem";
 import { PiggyBank } from "lucide-react";
 
-// Prevent static pre-rendering of this page
-export const dynamic = 'force-dynamic';
-
 function BudgetsPage() {
     const [budgetList, setBudgetList] = useState([]);
     const [loading, setLoading] = useState(true);
